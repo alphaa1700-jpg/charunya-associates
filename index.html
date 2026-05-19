@@ -274,7 +274,7 @@
     animation: fadeUp 0.8s ease 0.8s both;
   }
   .hero-stat {
-    padding: 16px 32px; text-align: center;
+    padding: 9px 26px; text-align: center;
     border-right: 1px solid rgba(255,255,255,0.1);
   }
   .hero-stat:last-child { border-right: none; }
@@ -644,7 +644,7 @@
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
         <div class="theme-toggle-knob" id="themeKnob">🌞</div>
       </button>
-      <a href="#contact" class="nav-cta">Get in Touch</a>
+      <a href="#" class="nav-cta" onclick="openContactModal(event)">Get in Touch</a>
       <button class="nav-hamburger" id="hamburger" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
@@ -668,7 +668,7 @@
     <p class="hero-sub">We craft enduring structures that stand as landmarks of quality and precision — from architectural residences to landmark commercial complexes.</p>
     <div class="hero-actions">
       <a href="#projects" class="btn-primary">View Projects</a>
-      <a href="#contact" class="btn-ghost">Get in Touch</a>
+      <a href="#" class="btn-ghost" onclick="openContactModal(event)">Get in Touch</a>
     </div>
   </div>
   <div class="hero-stats">
@@ -1068,7 +1068,263 @@
   </button>
 </div>
 
+<!-- ===== CONTACT MODAL ===== -->
+<div id="contactModal" style="display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,0.55);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:24px;">
+  <div style="background:var(--surface);border-radius:16px;width:100%;max-width:480px;box-shadow:var(--shadow-lg);overflow:hidden;animation:fadeUp 0.35s ease both;">
+    <div style="padding:28px 32px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <div style="font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:6px;">Start a Conversation</div>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:400;color:var(--text-primary);line-height:1.1;">Get in <em style="font-style:italic;color:var(--text-muted);">Touch</em></h3>
+      </div>
+      <button onclick="closeContactModal()" style="width:36px;height:36px;border-radius:50%;background:var(--bg-2);border:1px solid var(--border);font-size:1rem;color:var(--text-secondary);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;">✕</button>
+    </div>
+    <div style="padding:28px 32px;">
+      <div id="modalFormArea">
+        <div style="margin-bottom:20px;">
+          <label style="display:block;font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);font-weight:500;margin-bottom:8px;">Full Name *</label>
+          <input id="modal_name" type="text" placeholder="e.g. Rahul Sharma" style="width:100%;padding:12px 16px;border:1px solid var(--border-strong);border-radius:8px;background:var(--bg);color:var(--text-primary);font-family:'DM Sans',sans-serif;font-size:0.95rem;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border-strong)'">
+        </div>
+        <div style="margin-bottom:20px;">
+          <label style="display:block;font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);font-weight:500;margin-bottom:8px;">Email Address *</label>
+          <input id="modal_email" type="email" placeholder="e.g. rahul@email.com" style="width:100%;padding:12px 16px;border:1px solid var(--border-strong);border-radius:8px;background:var(--bg);color:var(--text-primary);font-family:'DM Sans',sans-serif;font-size:0.95rem;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border-strong)'">
+        </div>
+        <div style="margin-bottom:28px;">
+          <label style="display:block;font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);font-weight:500;margin-bottom:8px;">Phone Number *</label>
+          <input id="modal_phone" type="tel" placeholder="e.g. +91 98765 43210" style="width:100%;padding:12px 16px;border:1px solid var(--border-strong);border-radius:8px;background:var(--bg);color:var(--text-primary);font-family:'DM Sans',sans-serif;font-size:0.95rem;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border-strong)'">
+        </div>
+        <div id="modal_error" style="display:none;color:#c0392b;font-size:0.85rem;margin-bottom:14px;padding:10px 14px;background:rgba(192,57,43,0.08);border-radius:6px;border-left:3px solid #c0392b;"></div>
+        <button id="submitBtn" onclick="submitContactForm()" style="width:100%;padding:14px;background:var(--accent);color:#fff;border:none;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:500;letter-spacing:0.04em;cursor:pointer;transition:all 0.3s;">Submit Enquiry</button>
+        <p style="text-align:center;font-size:0.78rem;color:var(--text-muted);margin-top:14px;">We'll get back to you within 24 hours.</p>
+      </div>
+      <div id="modalSuccess" style="display:none;text-align:center;padding:16px 0;">
+        <div style="font-size:3rem;margin-bottom:16px;">✅</div>
+        <h4 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:400;color:var(--text-primary);margin-bottom:8px;">Thank You!</h4>
+        <p style="color:var(--text-secondary);font-size:0.92rem;margin-bottom:20px;">Your enquiry has been received. Our team will reach out shortly.</p>
+        <button onclick="resetAndClose()" style="padding:11px 28px;background:var(--accent);color:#fff;border:none;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:500;cursor:pointer;">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SheetJS for Excel export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
 <script>
+  /* ====================================================
+     EMAILJS SETUP INSTRUCTIONS
+     1. Sign up free at https://www.emailjs.com
+     2. Add Gmail service -> copy Service ID
+     3. Create a template with variables:
+           {{to_email}} {{week_label}} {{month_label}}
+           {{total_count}} {{week_count}} {{month_count}}
+           {{new_name}} {{new_email}} {{new_phone}} {{table_html}}
+        Set "To Email" field to: {{to_email}}
+     4. Copy Public Key from Account -> API Keys
+     5. Replace the three values below
+  ==================================================== */
+  const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';
+  const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';
+  const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+  const COMPANY_EMAIL       = 'charunyaassociates@gmail.com';
+
+  emailjs.init(EMAILJS_PUBLIC_KEY);
+
+  /* ===== CONTACT MODAL ===== */
+  const contactModal = document.getElementById('contactModal');
+  const STORAGE_KEY  = 'charunya_contacts';
+
+  function openContactModal(e) {
+    if (e) e.preventDefault();
+    contactModal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => document.getElementById('modal_name').focus(), 100);
+  }
+  function closeContactModal() {
+    contactModal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  function resetAndClose() {
+    ['modal_name','modal_email','modal_phone'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('modal_error').style.display = 'none';
+    document.getElementById('modalFormArea').style.display = 'block';
+    document.getElementById('modalSuccess').style.display = 'none';
+    closeContactModal();
+  }
+  contactModal.addEventListener('click', e => { if (e.target === contactModal) closeContactModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && contactModal.style.display === 'flex') closeContactModal(); });
+
+  /* ===== DATE HELPERS ===== */
+  function getWeekLabel(dateStr) {
+    const d = new Date(dateStr), day = d.getDay();
+    const mon = new Date(d); mon.setDate(d.getDate() - ((day + 6) % 7));
+    const sun = new Date(mon); sun.setDate(mon.getDate() + 6);
+    const fmt = dt => dt.toLocaleDateString('en-IN', { day:'2-digit', month:'short' });
+    return 'Week ' + fmt(mon) + ' - ' + fmt(sun) + ', ' + sun.getFullYear();
+  }
+  function getMonthLabel(dateStr) {
+    return new Date(dateStr).toLocaleDateString('en-IN', { month:'long', year:'numeric' });
+  }
+  function getWeekKey(dateStr) {
+    const d = new Date(dateStr), mon = new Date(d);
+    mon.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+    return mon.toISOString().slice(0,10);
+  }
+  function getMonthKey(dateStr) {
+    const d = new Date(dateStr);
+    return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0');
+  }
+
+  /* ===== BUILD EXCEL (3 sheets) ===== */
+  function buildExcel(entries) {
+    const wb   = XLSX.utils.book_new();
+    const cols  = [{ wch:5 },{ wch:25 },{ wch:32 },{ wch:18 },{ wch:22 }];
+
+    // All Enquiries
+    const allData = entries.map((e,i) => ({
+      'S.No': i+1, 'Name': e.name, 'Email': e.email,
+      'Phone': e.phone, 'Submitted At': e.timestamp,
+      'Week': getWeekLabel(e.rawDate), 'Month': getMonthLabel(e.rawDate)
+    }));
+    const wsAll = XLSX.utils.json_to_sheet(allData);
+    wsAll['!cols'] = [...cols, { wch:30 }, { wch:18 }];
+    XLSX.utils.book_append_sheet(wb, wsAll, 'All Enquiries');
+
+    // Weekly Report
+    const weekMap = {};
+    entries.forEach(e => {
+      const k = getWeekKey(e.rawDate);
+      if (!weekMap[k]) weekMap[k] = { label: getWeekLabel(e.rawDate), rows: [] };
+      weekMap[k].rows.push(e);
+    });
+    const weekData = [];
+    Object.keys(weekMap).sort().forEach(k => {
+      weekData.push({ 'Period': weekMap[k].label, 'Name':'', 'Email':'', 'Phone':'', 'Submitted At':'' });
+      weekMap[k].rows.forEach(e => weekData.push({ 'Period':'', 'Name':e.name, 'Email':e.email, 'Phone':e.phone, 'Submitted At':e.timestamp }));
+      weekData.push({ 'Period':'Total: '+weekMap[k].rows.length, 'Name':'','Email':'','Phone':'','Submitted At':'' });
+      weekData.push({ 'Period':'','Name':'','Email':'','Phone':'','Submitted At':'' });
+    });
+    const wsWeek = XLSX.utils.json_to_sheet(weekData);
+    wsWeek['!cols'] = [{ wch:34 },...cols.slice(1)];
+    XLSX.utils.book_append_sheet(wb, wsWeek, 'Weekly Report');
+
+    // Monthly Report
+    const monthMap = {};
+    entries.forEach(e => {
+      const k = getMonthKey(e.rawDate);
+      if (!monthMap[k]) monthMap[k] = { label: getMonthLabel(e.rawDate), rows: [] };
+      monthMap[k].rows.push(e);
+    });
+    const monthData = [];
+    Object.keys(monthMap).sort().forEach(k => {
+      monthData.push({ 'Period': monthMap[k].label, 'Name':'','Email':'','Phone':'','Submitted At':'' });
+      monthMap[k].rows.forEach(e => monthData.push({ 'Period':'','Name':e.name,'Email':e.email,'Phone':e.phone,'Submitted At':e.timestamp }));
+      monthData.push({ 'Period':'Total: '+monthMap[k].rows.length,'Name':'','Email':'','Phone':'','Submitted At':'' });
+      monthData.push({ 'Period':'','Name':'','Email':'','Phone':'','Submitted At':'' });
+    });
+    const wsMonth = XLSX.utils.json_to_sheet(monthData);
+    wsMonth['!cols'] = [{ wch:22 },...cols.slice(1)];
+    XLSX.utils.book_append_sheet(wb, wsMonth, 'Monthly Report');
+
+    return wb;
+  }
+
+  /* ===== HTML TABLE FOR EMAIL BODY ===== */
+  function buildEmailTable(entries) {
+    const rows = entries.map((e,i) =>
+      '<tr style="background:' + (i%2?'#f9f9f9':'#fff') + '">' +
+      '<td style="padding:8px 12px;border:1px solid #ddd">'+(i+1)+'</td>' +
+      '<td style="padding:8px 12px;border:1px solid #ddd">'+e.name+'</td>' +
+      '<td style="padding:8px 12px;border:1px solid #ddd">'+e.email+'</td>' +
+      '<td style="padding:8px 12px;border:1px solid #ddd">'+e.phone+'</td>' +
+      '<td style="padding:8px 12px;border:1px solid #ddd">'+e.timestamp+'</td></tr>'
+    ).join('');
+    return '<table style="border-collapse:collapse;font-family:Arial,sans-serif;font-size:13px;width:100%">' +
+      '<thead><tr style="background:#3d5a6e;color:#fff">' +
+      '<th style="padding:10px 12px;border:1px solid #ddd">S.No</th>' +
+      '<th style="padding:10px 12px;border:1px solid #ddd">Name</th>' +
+      '<th style="padding:10px 12px;border:1px solid #ddd">Email</th>' +
+      '<th style="padding:10px 12px;border:1px solid #ddd">Phone</th>' +
+      '<th style="padding:10px 12px;border:1px solid #ddd">Submitted At</th>' +
+      '</tr></thead><tbody>'+rows+'</tbody></table>';
+  }
+
+  /* ===== SEND EMAIL via EmailJS ===== */
+  async function sendReportEmail(entries, newEntry) {
+    const now       = new Date();
+    const weekKey   = getWeekKey(now.toISOString());
+    const monthKey  = getMonthKey(now.toISOString());
+    const weekCount  = entries.filter(e => getWeekKey(e.rawDate)  === weekKey).length;
+    const monthCount = entries.filter(e => getMonthKey(e.rawDate) === monthKey).length;
+    const wb     = buildExcel(entries);
+    const xlsB64 = XLSX.write(wb, { bookType:'xlsx', type:'base64' });
+    const params = {
+      to_email:    COMPANY_EMAIL,
+      week_label:  getWeekLabel(now.toISOString()),
+      month_label: getMonthLabel(now.toISOString()),
+      new_name:    newEntry.name,
+      new_email:   newEntry.email,
+      new_phone:   newEntry.phone,
+      week_count:  weekCount,
+      month_count: monthCount,
+      total_count: entries.length,
+      table_html:  buildEmailTable(entries.slice(-20)),
+      excel_b64:   xlsB64
+    };
+    try {
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params);
+      console.log('Email sent to', COMPANY_EMAIL);
+    } catch(err) {
+      console.warn('EmailJS not configured yet:', err);
+    }
+  }
+
+  /* ===== SUBMIT FORM ===== */
+  async function submitContactForm() {
+    const name  = document.getElementById('modal_name').value.trim();
+    const email = document.getElementById('modal_email').value.trim();
+    const phone = document.getElementById('modal_phone').value.trim();
+    const errEl = document.getElementById('modal_error');
+    const btn   = document.getElementById('submitBtn');
+
+    if (!name || !email || !phone) {
+      errEl.textContent = 'Please fill in all fields before submitting.';
+      errEl.style.display = 'block'; return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errEl.textContent = 'Please enter a valid email address.';
+      errEl.style.display = 'block'; return;
+    }
+    errEl.style.display = 'none';
+    btn.textContent = 'Submitting...';
+    btn.disabled = true;
+
+    let entries = [];
+    try { const s = localStorage.getItem(STORAGE_KEY); if (s) entries = JSON.parse(s); } catch(e) {}
+
+    const now = new Date();
+    const newEntry = {
+      name, email, phone,
+      timestamp: now.toLocaleString('en-IN', { dateStyle:'short', timeStyle:'short' }),
+      rawDate: now.toISOString()
+    };
+    entries.push(newEntry);
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(entries)); } catch(e) {}
+
+    // Download Excel locally
+    const wb = buildExcel(entries);
+    XLSX.writeFile(wb, 'Charunya_Associates_Enquiries.xlsx');
+
+    // Send email report
+    await sendReportEmail(entries, newEntry);
+
+    btn.textContent = 'Submit Enquiry';
+    btn.disabled = false;
+    document.getElementById('modalFormArea').style.display = 'none';
+    document.getElementById('modalSuccess').style.display = 'block';
+  }
+
   /* ===== THEME TOGGLE ===== */
   const html = document.documentElement;
   const themeToggle = document.getElementById('themeToggle');
