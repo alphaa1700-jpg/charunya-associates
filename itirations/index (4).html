@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Charunya Associates</title>
+<title>Charunya Associates — Building Tomorrow with Strength and Vision</title>
 <meta name="description" content="Stonemark Builders is a premier construction company delivering quality, safety, and innovation since 1998. Explore our projects and vision for the future.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -125,7 +125,7 @@
     background: rgba(22,20,18,0.92);
   }
   .header-inner {
-    max-width: 100%; margin: 0; padding: 0 20px;
+    max-width: 1200px; margin: 0 auto; padding: 0 32px;
     height: 72px;
     display: flex; align-items: center; justify-content: space-between;
   }
@@ -196,17 +196,8 @@
   /* ===== HERO ===== */
   #hero {
     min-height: 100vh; position: relative; overflow: hidden;
-    display: flex; align-items: center; justify-content: flex-start;
+    display: flex; align-items: center;
     padding: 0;
-  }
-  /* Thin vertical accent line on the far left — a hallmark of premium arch sites */
-  #hero::after {
-    content: '';
-    position: absolute; left: 32px; top: 20%; bottom: 20%;
-    width: 1px;
-    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.25) 30%, rgba(255,255,255,0.25) 70%, transparent);
-    z-index: 2;
-    animation: fadeIn 1.2s ease 1s both;
   }
   .hero-bg {
     position: absolute; inset: 0; z-index: 0;
@@ -228,10 +219,8 @@
   }
   .hero-content {
     position: relative; z-index: 2;
-    width: 100%;
-    padding: 0 64px;
+    max-width: 1200px; margin: 0 auto; padding: 0 32px;
     padding-top: 80px;
-    max-width: 760px;   /* text block never stretches beyond half the screen */
   }
   .hero-label {
     display: inline-flex; align-items: center; gap: 8px;
@@ -244,17 +233,18 @@
     content: ''; display: block; width: 32px; height: 1px; background: rgba(255,255,255,0.4);
   }
   .hero-title {
-    font-size: clamp(3rem, 6vw, 6rem);
+    font-size: clamp(3rem, 7vw, 6.5rem);
     font-weight: 300;
     color: #fff;
     line-height: 1.08;
     letter-spacing: -0.01em;
+    max-width: 800px;
     animation: fadeUp 0.8s ease 0.35s both;
     margin-bottom: 28px;
   }
   .hero-title em { font-style: italic; color: rgba(255,255,255,0.75); }
   .hero-sub {
-    max-width: 480px; font-size: 1.05rem; font-weight: 300;
+    max-width: 520px; font-size: 1.05rem; font-weight: 300;
     color: rgba(255,255,255,0.72); line-height: 1.75;
     animation: fadeUp 0.8s ease 0.5s both;
     margin-bottom: 44px;
@@ -281,6 +271,22 @@
     transition: all var(--transition);
   }
   .btn-ghost:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.6); transform: translateY(-2px); }
+  .hero-stats {
+    position: absolute; bottom: 48px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 0; z-index: 2;
+    background: rgba(255,255,255,0.08); backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 100px; overflow: hidden;
+    animation: fadeUp 0.8s ease 0.8s both;
+  }
+  .hero-stat {
+    padding: 9px 26px; text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+  .hero-stat:last-child { border-right: none; }
+  .hero-stat .num { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 500; color: #fff; line-height: 1; }
+  .hero-stat .lbl { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-top: 4px; }
+
   /* ===== SECTION HEADERS ===== */
   .section-header { margin-bottom: 64px; }
   .section-label {
@@ -484,34 +490,31 @@
 
   /* ===== FOOTER ===== */
   footer {
-    background: var(--bg-2);
-    color: var(--text-secondary);
-    border-top: 1px solid var(--border-strong);
+    background: #141210; color: rgba(255,255,255,0.7);
     padding: 64px 0 32px;
-    transition: background var(--transition), color var(--transition);
   }
   .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
-  .footer-brand .brand-name { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--text-primary); margin-bottom: 8px; transition: color var(--transition); }
-  .footer-brand p { font-size: 0.88rem; line-height: 1.75; max-width: 260px; color: var(--text-secondary); }
+  .footer-brand .brand-name { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: #fff; margin-bottom: 8px; }
+  .footer-brand p { font-size: 0.88rem; line-height: 1.75; max-width: 260px; }
   .footer-social { display: flex; gap: 10px; margin-top: 20px; }
   .social-btn {
     width: 36px; height: 36px; border-radius: 50%;
-    background: var(--bg-3); border: 1px solid var(--border-strong);
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
     display: flex; align-items: center; justify-content: center;
     font-size: 0.85rem; transition: all var(--transition);
-    color: var(--text-secondary);
+    color: rgba(255,255,255,0.6);
   }
   .social-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; transform: translateY(-2px); }
-  .footer-col h5 { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
+  .footer-col h5 { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 16px; }
   .footer-col ul li { margin-bottom: 10px; }
-  .footer-col ul li a { font-size: 0.9rem; color: var(--text-secondary); transition: color var(--transition); }
-  .footer-col ul li a:hover { color: var(--accent); }
+  .footer-col ul li a { font-size: 0.9rem; color: rgba(255,255,255,0.65); transition: color var(--transition); }
+  .footer-col ul li a:hover { color: #fff; }
   .footer-bottom {
-    border-top: 1px solid var(--border);
+    border-top: 1px solid rgba(255,255,255,0.08);
     padding-top: 24px;
     display: flex; justify-content: space-between; align-items: center;
     flex-wrap: wrap; gap: 12px;
-    font-size: 0.8rem; color: var(--text-muted);
+    font-size: 0.8rem; color: rgba(255,255,255,0.35);
   }
 
   /* ===== CHATBOT ===== */
@@ -608,6 +611,7 @@
     .nav-hamburger { display: flex; }
     .projects-grid { grid-template-columns: 1fr; }
     .values-grid { grid-template-columns: 1fr; }
+    .hero-stats { display: none; }
     .footer-grid { grid-template-columns: 1fr; gap: 32px; }
     .footer-bottom { flex-direction: column; text-align: center; }
     .timeline::before { left: 20px; }
@@ -815,6 +819,12 @@
       <a href="#projects" class="btn-primary">View Projects</a>
       <a href="#" class="btn-ghost" onclick="openContactModal(event)">Get in Touch</a>
     </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">26+</div><div class="lbl">Years Active</div></div>
+    <div class="hero-stat"><div class="num">180+</div><div class="lbl">Projects Done</div></div>
+    <div class="hero-stat"><div class="num">94%</div><div class="lbl">Client Satisfaction</div></div>
+    <div class="hero-stat"><div class="num">12</div><div class="lbl">Awards Won</div></div>
   </div>
 </section>
 
