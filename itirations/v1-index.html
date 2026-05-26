@@ -212,63 +212,19 @@
     position: absolute; inset: 0; z-index: 0;
     overflow: hidden;
   }
-  /* ===== HERO SLIDESHOW (Ken Burns) ===== */
-  .hero-slides {
+  .hero-video {
     position: absolute; inset: 0;
     width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center;
   }
-  .hero-slide {
-    position: absolute; inset: 0;
-    background-size: cover;
-    background-position: center;
-    opacity: 0;
-    transition: opacity 1.6s cubic-bezier(0.4,0,0.2,1);
-    /* Light theme filter */
-    filter: saturate(0.80) brightness(0.90) contrast(1.08);
-    transition: opacity 1.6s cubic-bezier(0.4,0,0.2,1), filter 0.6s ease;
-  }
-  [data-theme="dark"] .hero-slide {
-    filter: saturate(0.50) brightness(0.68) contrast(1.15);
-  }
-  .hero-slide.active { opacity: 1; }
-
-  /* Ken Burns: each slide gets a different slow zoom/pan */
-  .hero-slide:nth-child(1).active { animation: kb1 10s ease-in-out forwards; }
-  .hero-slide:nth-child(2).active { animation: kb2 10s ease-in-out forwards; }
-  .hero-slide:nth-child(3).active { animation: kb3 10s ease-in-out forwards; }
-  .hero-slide:nth-child(4).active { animation: kb4 10s ease-in-out forwards; }
-
-  @keyframes kb1 { from { transform: scale(1.08) translate(1%,  1%); } to { transform: scale(1.00) translate(0%,  0%); } }
-  @keyframes kb2 { from { transform: scale(1.00) translate(0%,  0%); } to { transform: scale(1.08) translate(-1%, 1%); } }
-  @keyframes kb3 { from { transform: scale(1.06) translate(-1%, 0%); } to { transform: scale(1.00) translate(1%, -1%); } }
-  @keyframes kb4 { from { transform: scale(1.00) translate(1%, -1%); } to { transform: scale(1.07) translate(0%,  1%); } }
-
-  /* Slide indicator dots */
-  .hero-dots {
-    position: absolute; bottom: 36px; left: 50%;
-    transform: translateX(-50%);
-    display: flex; gap: 10px; z-index: 4;
-  }
-  .hero-dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: rgba(255,255,255,0.35);
-    border: none; cursor: pointer; padding: 0;
-    transition: all 0.4s ease;
-  }
-  .hero-dot.active { width: 24px; border-radius: 4px; background: rgba(255,255,255,0.9); }
   .hero-overlay {
     position: absolute; inset: 0;
     transition: background 0.6s cubic-bezier(0.4,0,0.2,1);
-    /* Light theme: warm blue-slate tint — lets video breathe while keeping text readable */
-    background:
-      linear-gradient(to right, rgba(28,26,24,0.68) 0%, rgba(28,26,24,0.28) 60%, rgba(28,26,24,0.10) 100%),
-      linear-gradient(to bottom, rgba(61,90,110,0.22) 0%, rgba(139,111,71,0.30) 100%);
+    background: linear-gradient(160deg, rgba(61,90,110,0.52) 0%, rgba(30,22,14,0.70) 100%);
   }
   [data-theme="dark"] .hero-overlay {
-    /* Dark theme: deeper, richer blacks with subtle blue undertone */
-    background:
-      linear-gradient(to right, rgba(4,6,10,0.85) 0%, rgba(4,6,10,0.50) 60%, rgba(4,6,10,0.18) 100%),
-      linear-gradient(to bottom, rgba(20,32,46,0.40) 0%, rgba(8,8,8,0.70) 100%);
+    background: linear-gradient(160deg, rgba(12,20,28,0.72) 0%, rgba(4,4,4,0.88) 100%);
   }
   .hero-content {
     position: relative; z-index: 2;
@@ -840,23 +796,17 @@
 <!-- ===== HERO ===== -->
 <section id="hero">
   <div class="hero-bg">
-    <!-- Cinematic Ken Burns slideshow — construction & real-estate photography -->
-    <div class="hero-slides" id="heroSlides">
-      <!-- Slide 1: Aerial view of high-rise construction -->
-      <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920&q=85&auto=format&fit=crop&crop=center')"></div>
-      <!-- Slide 2: Modern glass skyscraper / real-estate -->
-      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1920&q=85&auto=format&fit=crop&crop=center')"></div>
-      <!-- Slide 3: Construction crane and steel framework -->
-      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1920&q=85&auto=format&fit=crop&crop=center')"></div>
-      <!-- Slide 4: Luxury residential architecture / real-estate -->
-      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1920&q=85&auto=format&fit=crop&crop=center')"></div>
-    </div>
-    <div class="hero-dots" id="heroDots">
-      <button class="hero-dot active" data-slide="0" aria-label="Slide 1"></button>
-      <button class="hero-dot" data-slide="1" aria-label="Slide 2"></button>
-      <button class="hero-dot" data-slide="2" aria-label="Slide 3"></button>
-      <button class="hero-dot" data-slide="3" aria-label="Slide 4"></button>
-    </div>
+    <!-- Pexels free construction time-lapse, no attribution required -->
+    <video
+      class="hero-video"
+      autoplay muted loop playsinline
+      poster="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1800&q=80"
+    >
+      <!-- Primary: Pexels construction site time-lapse (free, no sign-in) -->
+      <source src="https://videos.pexels.com/video-files/3209828/3209828-uhd_2560_1440_25fps.mp4" type="video/mp4">
+      <!-- Fallback source -->
+      <source src="https://videos.pexels.com/video-files/1568607/1568607-hd_1920_1080_30fps.mp4" type="video/mp4">
+    </video>
     <div class="hero-overlay"></div>
   </div>
   <div class="hero-content">
@@ -1714,39 +1664,7 @@
     stats.forEach(el => io.observe(el));
   })();
 
-  /* ===== HERO SLIDESHOW ===== */
-  (function() {
-    const slides = document.querySelectorAll('#heroSlides .hero-slide');
-    const dots   = document.querySelectorAll('#heroDots .hero-dot');
-    let current  = 0;
-    let timer;
-
-    function goTo(n) {
-      slides[current].classList.remove('active');
-      dots[current].classList.remove('active');
-      current = (n + slides.length) % slides.length;
-      slides[current].classList.add('active');
-      dots[current].classList.add('active');
-    }
-
-    function next() { goTo(current + 1); }
-
-    function startTimer() {
-      clearInterval(timer);
-      timer = setInterval(next, 6000);
-    }
-
-    dots.forEach(dot => {
-      dot.addEventListener('click', () => {
-        goTo(parseInt(dot.dataset.slide));
-        startTimer();
-      });
-    });
-
-    startTimer();
-  })();
-
-
+  /* ===== TILT EFFECT on project cards ===== */
   (function() {
     document.querySelectorAll('.project-card').forEach(card => {
       card.addEventListener('mousemove', e => {
